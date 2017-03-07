@@ -1,5 +1,8 @@
 package demoapp.dapulse.com.dapulsedemoapp.features.employees;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,6 +21,13 @@ public class EmployeeInteractor implements EmployeesVIP.Interactor {
     private final ServerApi serverApi;
     private final EmployeesVIP.Repository repository;
 
+
+    private Comparator<Employee> employeeComparator = (e1, e2) -> {
+        if ((e1.isManager && e2.isManager) || (!e1.isManager && !e2.isManager)) return e1.name.compareTo(e2.name);
+        else if (e1.isManager) return -1;
+        else return 1;
+    };
+
     @Inject
     public EmployeeInteractor(ServerApi serverApi, EmployeesVIP.Repository repository) {
         this.serverApi = serverApi;
@@ -26,34 +36,37 @@ public class EmployeeInteractor implements EmployeesVIP.Interactor {
 
     @Override
     public Observable<EmployeeResponse> loadEmployees() {
-        return serverApi.getEmployees().map(response -> {
-            repository.saveData(response);
-            return response;
-        });
+        //try to get from db first, if it's empty go to server and save data to db
+        Observable<EmployeeResponse> server = serverApi.getEmployees().doOnNext(repository::saveData);
+        return repository.getResponse()
+                .switchIfEmpty(server);
     }
 
     @Override
-    public Observable<List<Employee>> getTopLevelManagement() {
+    public Observable<ArrayList<Employee>> getTopLevelManagement() {
         return Observable.create(subscriber -> {
-            List<Employee> topLevelManagement = repository.getTopLevelManagement();
+            ArrayList<Employee> topLevelManagement = new ArrayList<>(repository.getTopLevelManagement());
+            Collections.sort(topLevelManagement,employeeComparator );
             subscriber.onNext(topLevelManagement);
             subscriber.onCompleted();
         });
     }
 
     @Override
-    public Observable<List<Employee>> getDepartmentEmployees(String department) {
+    public Observable<ArrayList<Employee>> getDepartmentEmployees(String department) {
         return Observable.create(subscriber -> {
-            List<Employee> departmentEmployees = repository.getDepartmentEmployees(department);
+            ArrayList<Employee> departmentEmployees = new ArrayList<>(repository.getDepartmentEmployees(department));
+            Collections.sort(departmentEmployees,employeeComparator );
             subscriber.onNext(departmentEmployees);
             subscriber.onCompleted();
         });
     }
 
     @Override
-    public Observable<List<Employee>> getManagerEmployees(int managerId) {
+    public Observable<ArrayList<Employee>> getManagerEmployees(int managerId) {
         return Observable.create(subscriber -> {
-            List<Employee> managerEmployees = repository.getManagerEmployees(managerId);
+            ArrayList<Employee> managerEmployees = new ArrayList<>(repository.getManagerEmployees(managerId));
+            Collections.sort(managerEmployees,employeeComparator );
             subscriber.onNext(managerEmployees);
             subscriber.onCompleted();
         });

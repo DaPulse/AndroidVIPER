@@ -10,6 +10,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import demoapp.dapulse.com.dapulsedemoapp.NavigationHandler;
 
 
 @Module
@@ -32,5 +33,10 @@ public final class ApplicationModule {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
+    @Provides
+    @Singleton
+    NavigationHandler provideNavigationHandler() {
+        return new NavigationHandler();
+    }
 
 }

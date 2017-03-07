@@ -16,4 +16,9 @@ public class EmployeeResponse {
     @SerializedName("employees")
     @Expose
     public List<Employee> employees = null;
+
+    public EmployeeResponse(String companyName, List<Employee> employees) {
+        this.companyName = companyName;
+        this.employees = employees;
+    }
 }
