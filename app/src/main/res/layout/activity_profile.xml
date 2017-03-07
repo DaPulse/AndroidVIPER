@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical">
+
+
+    <demoapp.dapulse.com.dapulsedemoapp.features.employees.ui.ItemViewEmployee
+        android:id="@+id/employee_view"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/email_field"
+        android:layout_marginTop="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/employee_view"
+        android:text="Email:"
+        android:textSize="18sp"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/employee_mail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/email_field"
+        android:layout_marginLeft="8dp"
+        android:textSize="18sp"
+        android:layout_toRightOf="@id/email_field"
+        android:text="123@gmail.com" />
+
+
+    <TextView
+        android:id="@+id/phone_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/email_field"
+        android:layout_marginTop="16dp"
+        android:text="Phone:"
+        android:textSize="18sp"
+
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/employee_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/phone_field"
+        android:layout_marginLeft="8dp"
+        android:textSize="18sp"
+        android:layout_toRightOf="@id/phone_field"
+        android:text="0500505051:" />
+</RelativeLayout>
