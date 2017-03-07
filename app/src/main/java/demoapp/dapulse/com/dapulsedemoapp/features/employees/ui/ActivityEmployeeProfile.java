@@ -38,6 +38,5 @@ public class ActivityEmployeeProfile extends AppCompatActivity {
             phone.setText(employee.phone);
             email.setText(employee.email);
         }
-
     }
 }

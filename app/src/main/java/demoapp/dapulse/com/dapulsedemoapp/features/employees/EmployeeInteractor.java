@@ -3,10 +3,7 @@ package demoapp.dapulse.com.dapulsedemoapp.features.employees;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
-
 import javax.inject.Inject;
-
 import demoapp.dapulse.com.dapulsedemoapp.dagger.ServerApi;
 import demoapp.dapulse.com.dapulsedemoapp.features.employees.models.Employee;
 import demoapp.dapulse.com.dapulsedemoapp.features.employees.models.EmployeeResponse;
